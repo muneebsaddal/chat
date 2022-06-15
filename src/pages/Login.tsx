@@ -1,8 +1,9 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import Logo from "../assets/loginLogo.png";
+// import Logo from "../assets/keyIllustration.png";
 
 const Login: React.FC = () => {
 	const onFinish = (values: any) => {
@@ -12,13 +13,13 @@ const Login: React.FC = () => {
 	return (
 		<Container>
 			<LoginSection>
-				<Form
+				<StyledForm
 					name="normal_login"
 					className="login-form"
 					initialValues={{ remember: true }}
 					onFinish={onFinish}
 				>
-					<Form.Item
+					<StyledForm.Item
 						name="username"
 						rules={[
 							{
@@ -33,8 +34,8 @@ const Login: React.FC = () => {
 							}
 							placeholder="Username"
 						/>
-					</Form.Item>
-					<Form.Item
+					</StyledForm.Item>
+					<StyledForm.Item
 						name="password"
 						rules={[
 							{
@@ -50,33 +51,33 @@ const Login: React.FC = () => {
 							type="password"
 							placeholder="Password"
 						/>
-					</Form.Item>
-					<Form.Item>
-						<Form.Item
+					</StyledForm.Item>
+					<StyledForm.Item>
+						<StyledForm.Item
 							name="remember"
 							valuePropName="checked"
 							noStyle
 						>
 							<Checkbox>Remember me</Checkbox>
-						</Form.Item>
+						</StyledForm.Item>
 
-						<a className="login-form-forgot" href="">
+						<ForgotPassword className="login-form-forgot" href="">
 							Forgot password
-						</a>
-					</Form.Item>
+						</ForgotPassword>
+					</StyledForm.Item>
 
-					<Form.Item>
-						<Button
+					<StyledForm.Item>
+						<LoginButton
 							type="primary"
 							htmlType="submit"
 							className="login-form-button"
 						>
 							Log in
-						</Button>
-						Or <a href="">register now!</a>
-					</Form.Item>
-				</Form>
-				<img src={Logo} alt="" />
+						</LoginButton>{" "}
+						Or <Link to="/signup">register now!</Link>
+					</StyledForm.Item>
+				</StyledForm>
+				{/* <img src={Logo} alt="" /> */}
 			</LoginSection>
 		</Container>
 	);
@@ -96,14 +97,33 @@ const LoginSection = styled.section`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	padding: 0px 70px;
+	padding: 50px 50px 30px 50px;
 	justify-content: space-between;
 
-	position: relative;
-	width: 636px;
-	height: 410px;
+	// position: relative;
+	// width: 636px;
+	// height: 410px;
 
-	background: #ffffff;
+	background: #101010;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 	border-radius: 8px;
+`;
+
+const StyledForm = styled(Form)`
+	max-width: 400px;
+	width: 350px;
+	height: 300px;
+	display: flex;
+	flex-direction: column;
+	// align-items: center;
+	justify-content: center;
+`;
+
+const ForgotPassword = styled.a`
+	float: right;
+`;
+
+const LoginButton = styled(Button)`
+	width: 100%;
+	margin-bottom: 10px;
 `;
