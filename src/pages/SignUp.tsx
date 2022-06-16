@@ -157,7 +157,7 @@ const Container = styled.div`
 
 const Register = styled.section`
 	padding: 50px;
-	background: #101010;
+	background: #fdfdfd;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 	border-radius: 8px;
 `;

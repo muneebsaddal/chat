@@ -104,7 +104,7 @@ const LoginSection = styled.section`
 	// width: 636px;
 	// height: 410px;
 
-	background: #101010;
+	background: #fdfdfd;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 	border-radius: 8px;
 `;
