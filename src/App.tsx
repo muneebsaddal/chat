@@ -44,14 +44,14 @@ export default App;
 
 const Container = styled(Layout)`
 	background: #ffffff;
-	padding: 2%;
+	padding: 1%;
 	height: 100vh;
 `;
 
 const Sidebar = styled(Sider)`
 	background: #ffffff;
 	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
-	border-radius: 5px;
+	border-radius: 8px;
 `;
 
 const ProfileHeader = styled(Header)`
@@ -74,7 +74,7 @@ const Chat = styled(Layout)`
 	background: #ffffff;
 	margin: 0px 0px 0px 20px;
 	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
-	border-radius: 5px;
+	border-radius: 8px;
 `;
 
 const ChatHeader = styled(Header)`
@@ -85,8 +85,8 @@ const ChatHeader = styled(Header)`
 
 const Messages = styled(Content)`
 	background: #8babd8;
-
 	margin: 0px;
+	padding: 0px;
 `;
 
 const TypingSection = styled(Footer)`
