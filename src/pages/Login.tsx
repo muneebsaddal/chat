@@ -1,13 +1,41 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+	auth,
+	loginWithEmailAndPassword,
+	signInWithGoogle,
+} from "../config/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 // import Logo from "../assets/keyIllustration.png";
 
 const Login: React.FC = () => {
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+	const [
+		user,
+		loading,
+		// error
+	] = useAuthState(auth);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (loading) {
+			//trigger a loading screen here
+			return;
+		}
+		if (user) navigate("/home");
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user, loading]);
+
 	const onFinish = (values: any) => {
 		console.log("Received values of form: ", values);
+		setEmail(values.email);
+		setPassword(values.password);
+		loginWithEmailAndPassword(email, password);
 	};
 
 	return (
@@ -20,11 +48,11 @@ const Login: React.FC = () => {
 					onFinish={onFinish}
 				>
 					<StyledForm.Item
-						name="username"
+						name="email"
 						rules={[
 							{
 								required: true,
-								message: "Please input your Username!",
+								message: "Please input your email!",
 							},
 						]}
 					>
@@ -32,7 +60,7 @@ const Login: React.FC = () => {
 							prefix={
 								<UserOutlined className="site-form-item-icon" />
 							}
-							placeholder="Username"
+							placeholder="Email"
 						/>
 					</StyledForm.Item>
 					<StyledForm.Item
@@ -61,8 +89,8 @@ const Login: React.FC = () => {
 							<Checkbox>Remember me</Checkbox>
 						</StyledForm.Item>
 
-						<ForgotPassword className="login-form-forgot" href="">
-							Forgot password
+						<ForgotPassword className="login-form-forgot">
+							<Link to="/reset">Forgot password</Link>
 						</ForgotPassword>
 					</StyledForm.Item>
 
@@ -73,8 +101,16 @@ const Login: React.FC = () => {
 							className="login-form-button"
 						>
 							Log in
-						</LoginButton>{" "}
-						Or <Link to="/signup">register now!</Link>
+						</LoginButton>
+						<GoogleSignInButton
+							type="primary"
+							htmlType="submit"
+							className="login-form-button"
+							onClick={signInWithGoogle}
+						>
+							Sign in with Google
+						</GoogleSignInButton>
+						Or <Link to="/register">register now!</Link>
 					</StyledForm.Item>
 				</StyledForm>
 				{/* <img src={Logo} alt="" /> */}
@@ -119,11 +155,16 @@ const StyledForm = styled(Form)`
 	justify-content: center;
 `;
 
-const ForgotPassword = styled.a`
+const ForgotPassword = styled.span`
 	float: right;
 `;
 
 const LoginButton = styled(Button)`
+	width: 100%;
+	margin-bottom: 10px;
+`;
+
+const GoogleSignInButton = styled(Button)`
 	width: 100%;
 	margin-bottom: 10px;
 `;

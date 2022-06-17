@@ -1,6 +1,14 @@
 import { Layout } from "antd";
 import styled from "styled-components";
 
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+
+import { logout } from "./config/firebase";
+
 import "./App.css";
 import ProfileHeaderComp from "./components/ProfileHeaderComp";
 import ContactSearchComp from "./components/ContactSearchComp";
@@ -10,7 +18,22 @@ import TypingSectionComp from "./components/TypingSectionComp";
 
 const { Header, Footer, Sider, Content } = Layout;
 
+firebase.initializeApp({
+	apiKey: "AIzaSyB9nCVQsEzp5s_FjgvBRVHh90CCRGvxY4c",
+	authDomain: "chat-ac983.firebaseapp.com",
+	projectId: "chat-ac983",
+	storageBucket: "chat-ac983.appspot.com",
+	messagingSenderId: "751259258650",
+	appId: "1:751259258650:web:01922d4e9665e2a77266a3",
+});
+
+const auth = firebase.auth();
+const firestore = firebase.firestore();
+
 const App: React.FC = () => {
+	const [user] = useAuthState(auth as any);
+	console.log(user);
+
 	return (
 		<>
 			<Container>
@@ -24,6 +47,7 @@ const App: React.FC = () => {
 					<ContactList>
 						<ContactListComp />
 					</ContactList>
+					<button onClick={logout}>Log out</button>
 				</Sidebar>
 
 				<Chat>
