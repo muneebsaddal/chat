@@ -1,14 +1,6 @@
-import {
-	Button,
-	Form,
-	Input,
-	// Select
-} from "antd";
+import { Button, Form, Input } from "antd";
 import styled from "styled-components";
-import {
-	// useState,
-	useEffect,
-} from "react";
+import { useState, useEffect } from "react";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,8 +9,6 @@ import {
 	registerWithEmailAndPassword,
 	signInWithGoogle,
 } from "../config/firebase";
-
-// const { Option } = Select;
 
 const formItemLayout = {
 	labelCol: {
@@ -40,9 +30,9 @@ const formItemLayout = {
 };
 
 const Register = () => {
-	// const [email, setEmail] = useState<string>("");
-	// const [password, setPassword] = useState<string>("");
-	// const [name, setName] = useState<string>("");
+	const [name, setName] = useState<string>("");
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 
 	const [form] = Form.useForm();
 
@@ -59,32 +49,9 @@ const Register = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user, loading]);
 
-	// fix the state save error here
-	const onFinish = (values: any) => {
-		// console.log("Received values of form: ", values);
-		// setName(values.name);
-		// setEmail(values.email);
-		// setPassword(values.password);
-		// if (!name) alert("Please Enter Name");
-		// console.log(name, email, password);
-		registerWithEmailAndPassword(
-			values.name,
-			values.email,
-			values.password
-		);
+	const onFinish = () => {
+		registerWithEmailAndPassword(name, email, password);
 	};
-
-	// const prefixSelector = (
-	// 	<Form.Item name="prefix" noStyle>
-	// 		<Select
-	// 			style={{
-	// 				width: 70,
-	// 			}}
-	// 		>
-	// 			<Option value="92">+92</Option>
-	// 		</Select>
-	// 	</Form.Item>
-	// );
 
 	return (
 		<Container>
@@ -94,9 +61,6 @@ const Register = () => {
 					form={form}
 					name="register"
 					onFinish={onFinish}
-					initialValues={{
-						prefix: "92",
-					}}
 					scrollToFirstError
 				>
 					<FormItem
@@ -111,7 +75,7 @@ const Register = () => {
 							},
 						]}
 					>
-						<Input />
+						<Input onChange={(e) => setName(e.target.value)} />
 					</FormItem>
 
 					<FormItem
@@ -124,12 +88,7 @@ const Register = () => {
 							},
 						]}
 					>
-						<Input
-						// addonBefore={prefixSelector}
-						// style={{
-						// 	width: "100%",
-						// }}
-						/>
+						<Input onChange={(e) => setEmail(e.target.value)} />
 					</FormItem>
 
 					<FormItem
@@ -143,7 +102,9 @@ const Register = () => {
 						]}
 						hasFeedback
 					>
-						<Input.Password />
+						<Input.Password
+							onChange={(e) => setPassword(e.target.value)}
+						/>
 					</FormItem>
 
 					<FormItem
@@ -183,7 +144,6 @@ const Register = () => {
 						</RegisterButton>
 						<GoogleSignInButton
 							type="primary"
-							// htmlType="submit"
 							className="login-form-button"
 							onClick={signInWithGoogle}
 						>

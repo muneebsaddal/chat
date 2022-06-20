@@ -31,10 +31,7 @@ const Login: React.FC = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user, loading]);
 
-	const onFinish = (values: any) => {
-		console.log("Received values of form: ", values);
-		setEmail(values.email);
-		setPassword(values.password);
+	const onFinish = () => {
 		loginWithEmailAndPassword(email, password);
 	};
 
@@ -61,6 +58,7 @@ const Login: React.FC = () => {
 								<UserOutlined className="site-form-item-icon" />
 							}
 							placeholder="Email"
+							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</StyledForm.Item>
 					<StyledForm.Item
@@ -78,6 +76,7 @@ const Login: React.FC = () => {
 							}
 							type="password"
 							placeholder="Password"
+							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</StyledForm.Item>
 					<StyledForm.Item>
