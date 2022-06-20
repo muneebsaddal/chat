@@ -104,7 +104,7 @@ const Login: React.FC = () => {
 						</LoginButton>
 						<GoogleSignInButton
 							type="primary"
-							htmlType="submit"
+							// htmlType="submit"
 							className="login-form-button"
 							onClick={signInWithGoogle}
 						>
