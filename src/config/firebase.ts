@@ -89,9 +89,11 @@ const passwordResetEmail = async (email: string) => {
 	try {
 		await sendPasswordResetEmail(auth, email);
 		alert("Password reset link sent!");
+		return true;
 	} catch (err: any) {
 		console.error(err);
 		alert(err.message);
+		return false;
 	}
 };
 

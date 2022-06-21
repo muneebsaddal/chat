@@ -4,63 +4,92 @@ import { UserOutlined } from "@ant-design/icons";
 
 import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { auth, passwordResetEmail } from "../config/firebase";
 
 const Reset = () => {
 	const [email, setEmail] = useState<string>("");
 
-	const [user, loading, 
-        // error
-    ] = useAuthState(auth);
+	const [resetResponse, showResetResponse] = useState<boolean>(false);
+
+	const [
+		user,
+		loading,
+		// error
+	] = useAuthState(auth);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (loading) return;
-		if (user) navigate("/home");
+		user && navigate("/home");
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user, loading]);
 
-	const onFinish = () => {
-		passwordResetEmail(email);
+	const onFinish = async () => {
+		const res = await passwordResetEmail(email);
+		res && showResetResponse(true);
+	};
+
+	const navigateToLogin = () => {
+		navigate("/");
 	};
 
 	return (
 		<Container>
-			<StyledForm
-				name="normal_login"
-				className="login-form"
-				initialValues={{ remember: true }}
-				onFinish={onFinish}
-			>
-				<StyledForm.Item
-					name="email"
-					rules={[
-						{
-							required: true,
-							message: "Please input your email!",
-						},
-					]}
+			{!resetResponse ? (
+				<StyledForm
+					name="normal_login"
+					className="login-form"
+					initialValues={{ remember: true }}
+					onFinish={onFinish}
 				>
-					<Input
-						prefix={
-							<UserOutlined className="site-form-item-icon" />
-						}
-						placeholder="Email"
-						onChange={(e) => setEmail(e.target.value)}
-					/>
-				</StyledForm.Item>
-				<StyledForm.Item>
-					<ResetButton
-						type="primary"
-						htmlType="submit"
-						className="login-form-button"
+					<StyledForm.Item
+						name="email"
+						rules={[
+							{
+								required: true,
+								message: "Please input your email!",
+							},
+						]}
 					>
-						Reset Password
-					</ResetButton>
-				</StyledForm.Item>
-			</StyledForm>
+						<Input
+							prefix={
+								<UserOutlined className="site-form-item-icon" />
+							}
+							placeholder="Email"
+							onChange={(e) => setEmail(e.target.value)}
+						/>
+					</StyledForm.Item>
+					<StyledForm.Item>
+						<ResetButton
+							type="primary"
+							htmlType="submit"
+							className="login-form-button"
+						>
+							Reset Password
+						</ResetButton>
+					</StyledForm.Item>
+				</StyledForm>
+			) : (
+				<StyledForm
+					name="normal_login"
+					className="login-form"
+					initialValues={{ remember: true }}
+					onFinish={onFinish}
+				>
+					<ResponseMessage>Reset Email Sent!</ResponseMessage>
+					<StyledForm.Item>
+						<LoginButton
+							type="primary"
+							className="login-form-button"
+							onClick={navigateToLogin}
+						>
+							Login
+						</LoginButton>
+					</StyledForm.Item>
+				</StyledForm>
+			)}
 		</Container>
 	);
 };
@@ -86,8 +115,17 @@ const StyledForm = styled(Form)`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 `;
 
 const ResetButton = styled(Button)`
 	width: 100%;
+`;
+
+const LoginButton = styled(Button)`
+	width: 100px;
+`;
+
+const ResponseMessage = styled.p`
+	margin-bottom: 20px;
 `;
