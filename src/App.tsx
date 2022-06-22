@@ -1,16 +1,15 @@
-import { Layout } from "antd";
-import styled from "styled-components";
-
-import firebase from "firebase/compat/app";
+import { useEffect, useState } from "react";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import { Link, useNavigate } from "react-router-dom";
+import { auth, db, logout } from "./config/firebase";
+import { query, collection, getDocs, where } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
-import { logout } from "./config/firebase";
-
+import { Layout } from "antd";
+import styled from "styled-components";
 import "./App.css";
+
 import ProfileHeaderComp from "./components/ProfileHeaderComp";
 import ContactSearchComp from "./components/ContactSearchComp";
 import ContactListComp from "./components/ContactListComp";
@@ -19,28 +18,44 @@ import TypingSectionComp from "./components/TypingSectionComp";
 
 const { Header, Footer, Sider, Content } = Layout;
 
-firebase.initializeApp({
-	apiKey: "AIzaSyB9nCVQsEzp5s_FjgvBRVHh90CCRGvxY4c",
-	authDomain: "chat-ac983.firebaseapp.com",
-	projectId: "chat-ac983",
-	storageBucket: "chat-ac983.appspot.com",
-	messagingSenderId: "751259258650",
-	appId: "1:751259258650:web:01922d4e9665e2a77266a3",
-});
-
-const auth = firebase.auth();
-const firestore = firebase.firestore();
-
 const App: React.FC = () => {
-	const [user] = useAuthState(auth as any);
-	console.log(user);
+	const [user, loading] = useAuthState(auth);
+	const [name, setName] = useState<string>("");
+	const navigate = useNavigate();
+
+	const fetchUserName = async () => {
+		try {
+			const q = query(
+				collection(db, "users"),
+				where("uid", "==", user?.uid)
+			);
+			const doc = await getDocs(q);
+			console.log(doc.docs);
+			const data = doc.docs[0].data();
+			setName(data.name);
+		} catch (err) {
+			console.error(err);
+			// alert("An error occurred while fetching user data");
+		}
+	};
+	useEffect(() => {
+		if (loading) return;
+		!user && navigate("/");
+		fetchUserName();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user, loading]);
+
+	const logoutUser = () => {
+		logout();
+		navigate("/");
+	};
 
 	return (
 		<>
 			<Container>
 				<Sidebar width={400}>
 					<ProfileHeader>
-						<ProfileHeaderComp />
+						<ProfileHeaderComp name={name} />
 					</ProfileHeader>
 					<ContactSearch>
 						<ContactSearchComp />
@@ -48,7 +63,7 @@ const App: React.FC = () => {
 					<ContactList>
 						<ContactListComp />
 					</ContactList>
-					<button onClick={logout}>Log out</button>
+					<button id="logout" onClick={logoutUser}>Log out</button>
 				</Sidebar>
 
 				<Chat>

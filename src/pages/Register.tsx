@@ -75,7 +75,10 @@ const Register = () => {
 							},
 						]}
 					>
-						<Input onChange={(e) => setName(e.target.value)} />
+						<Input
+							id="name"
+							onChange={(e) => setName(e.target.value)}
+						/>
 					</FormItem>
 
 					<FormItem
@@ -88,7 +91,10 @@ const Register = () => {
 							},
 						]}
 					>
-						<Input onChange={(e) => setEmail(e.target.value)} />
+						<Input
+							id="email"
+							onChange={(e) => setEmail(e.target.value)}
+						/>
 					</FormItem>
 
 					<FormItem
@@ -103,6 +109,7 @@ const Register = () => {
 						hasFeedback
 					>
 						<Input.Password
+							id="password"
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</FormItem>
@@ -135,11 +142,15 @@ const Register = () => {
 							}),
 						]}
 					>
-						<Input.Password />
+						<Input.Password id="confirm-password" />
 					</FormItem>
 
 					<FormItem>
-						<RegisterButton type="primary" htmlType="submit">
+						<RegisterButton
+							id="register-button"
+							type="primary"
+							htmlType="submit"
+						>
 							Register
 						</RegisterButton>
 						<GoogleSignInButton

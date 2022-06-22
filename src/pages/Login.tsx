@@ -57,6 +57,7 @@ const Login: React.FC = () => {
 							prefix={
 								<UserOutlined className="site-form-item-icon" />
 							}
+							id="email"
 							placeholder="Email"
 							onChange={(e) => setEmail(e.target.value)}
 						/>
@@ -75,6 +76,7 @@ const Login: React.FC = () => {
 								<LockOutlined className="site-form-item-icon" />
 							}
 							type="password"
+							id="password"
 							placeholder="Password"
 							onChange={(e) => setPassword(e.target.value)}
 						/>
@@ -97,6 +99,7 @@ const Login: React.FC = () => {
 						<LoginButton
 							type="primary"
 							htmlType="submit"
+							id="login-button"
 							className="login-form-button"
 						>
 							Log in
