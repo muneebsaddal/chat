@@ -30,9 +30,9 @@ const App: React.FC = () => {
 				where("uid", "==", user?.uid)
 			);
 			const doc = await getDocs(q);
-			console.log(doc.docs);
 			const data = doc.docs[0].data();
 			setName(data.name);
+			console.log(name);
 		} catch (err) {
 			console.error(err);
 			// alert("An error occurred while fetching user data");
@@ -50,12 +50,16 @@ const App: React.FC = () => {
 		navigate("/");
 	};
 
+	// console.log(name)
+
 	return (
 		<>
 			<Container>
 				<Sidebar width={400}>
 					<ProfileHeader>
-						<ProfileHeaderComp name={name} />
+						<ProfileHeaderComp
+						// name={name}
+						/>
 					</ProfileHeader>
 					<ContactSearch>
 						<ContactSearchComp />
@@ -63,7 +67,9 @@ const App: React.FC = () => {
 					<ContactList>
 						<ContactListComp />
 					</ContactList>
-					<button id="logout" onClick={logoutUser}>Log out</button>
+					<button id="logout" onClick={logoutUser}>
+						Log out
+					</button>
 				</Sidebar>
 
 				<Chat>

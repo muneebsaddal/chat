@@ -3,12 +3,19 @@ import { MoreOutlined } from "@ant-design/icons";
 
 import ProfileAvatar from "../assets/Xiao.webp";
 
+// interface ProfileHeaderProps {
+// 	name: string;
+// }
+
+// const ProfileHeaderComp: React.FC<ProfileHeaderProps> = (props) => {
+// 	console.log(props.name);
+
 const ProfileHeaderComp: React.FC = () => {
 	return (
 		<ProfileHeader>
 			<span>
 				<img src={ProfileAvatar} alt="" />
-				<h3>Xiao</h3>
+				<h3>{/* {props.name} */}</h3>
 			</span>
 			<span>
 				<MoreOutlined
