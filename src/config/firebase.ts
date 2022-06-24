@@ -24,7 +24,7 @@ const firebaseConfig = {
 	projectId: "chat-ac983",
 	storageBucket: "chat-ac983.appspot.com",
 	messagingSenderId: "751259258650",
-	appId: "1:751259258650:web:01922d4e9665e2a77266a3",
+	appId: "1:751259258650:web:aea07576a906983b7266a3",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -46,11 +46,12 @@ const signInWithGoogle = async () => {
 				name: user.displayName,
 				authProvider: "google",
 				email: user.email,
+				photoUrl: user.photoURL,
 			});
 		}
 	} catch (err: any) {
 		console.error(err);
-		alert(err.message);
+		// alert(err.message);
 	}
 };
 

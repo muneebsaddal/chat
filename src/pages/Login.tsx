@@ -10,8 +10,6 @@ import {
 } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-// import Logo from "../assets/keyIllustration.png";
-
 const Login: React.FC = () => {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");

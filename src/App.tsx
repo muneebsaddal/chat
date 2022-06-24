@@ -3,7 +3,13 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db, logout } from "./config/firebase";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import {
+	query,
+	collection,
+	getDocs,
+	where,
+	Firestore,
+} from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 import { Layout } from "antd";
@@ -21,6 +27,7 @@ const { Header, Footer, Sider, Content } = Layout;
 const App: React.FC = () => {
 	const [user, loading] = useAuthState(auth);
 	const [name, setName] = useState<string>("");
+	const [userPhoto, setUserPhoto] = useState<string>("");
 	const navigate = useNavigate();
 
 	const fetchUserName = async () => {
@@ -32,10 +39,9 @@ const App: React.FC = () => {
 			const doc = await getDocs(q);
 			const data = doc.docs[0].data();
 			setName(data.name);
-			console.log(name);
+			setUserPhoto(data.photoUrl);
 		} catch (err) {
 			console.error(err);
-			// alert("An error occurred while fetching user data");
 		}
 	};
 	useEffect(() => {
@@ -50,16 +56,12 @@ const App: React.FC = () => {
 		navigate("/");
 	};
 
-	// console.log(name)
-
 	return (
 		<>
 			<Container>
 				<Sidebar width={400}>
 					<ProfileHeader>
-						<ProfileHeaderComp
-						// name={name}
-						/>
+						<ProfileHeaderComp name={name} userPhoto={userPhoto} />
 					</ProfileHeader>
 					<ContactSearch>
 						<ContactSearchComp />
@@ -96,8 +98,8 @@ const Container = styled(Layout)`
 
 const Sidebar = styled(Sider)`
 	background: #ffffff;
-	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
-	border-radius: 8px;
+	box-shadow: -1px 0px 3px rgba(0, 0, 0, 0.25);
+	border-radius: 2px 0px 0px 2px;
 `;
 
 const ProfileHeader = styled(Header)`
@@ -108,8 +110,8 @@ const ProfileHeader = styled(Header)`
 
 const ContactSearch = styled(Header)`
 	background: none;
-	padding: 5px 25px;
-	height: 40px;
+	padding: 10px 25px;
+	height: 50px;
 `;
 
 const ContactList = styled(Content)`
@@ -118,9 +120,9 @@ const ContactList = styled(Content)`
 
 const Chat = styled(Layout)`
 	background: #ffffff;
-	margin: 0px 0px 0px 20px;
-	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
-	border-radius: 8px;
+	// margin: 0px 0px 0px 20px;
+	box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.25);
+	border-radius: 0px 2px 2px 0px;
 `;
 
 const ChatHeader = styled(Header)`

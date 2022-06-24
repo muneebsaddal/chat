@@ -1,21 +1,17 @@
 import styled from "styled-components";
 import { MoreOutlined } from "@ant-design/icons";
 
-import ProfileAvatar from "../assets/Xiao.webp";
+interface ProfileHeaderProps {
+	name: string;
+	userPhoto: string;
+}
 
-// interface ProfileHeaderProps {
-// 	name: string;
-// }
-
-// const ProfileHeaderComp: React.FC<ProfileHeaderProps> = (props) => {
-// 	console.log(props.name);
-
-const ProfileHeaderComp: React.FC = () => {
+const ProfileHeaderComp: React.FC<ProfileHeaderProps> = (props) => {
 	return (
 		<ProfileHeader>
 			<span>
-				<img src={ProfileAvatar} alt="" />
-				<h3>{/* {props.name} */}</h3>
+				<img src={props.userPhoto} alt="" />
+				<h3>{props.name}</h3>
 			</span>
 			<span>
 				<MoreOutlined
