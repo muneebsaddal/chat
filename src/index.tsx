@@ -1,6 +1,4 @@
 import { createRoot } from "react-dom/client";
-import { Provider } from "react-redux";
-import { store } from "./app/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import Login from "./pages/Login";
@@ -11,14 +9,12 @@ const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
-	<Provider store={store}>
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<Login />} />
-				<Route path="/register" element={<Register />} />
-				<Route path="/reset" element={<Reset />} />
-				<Route path="/home" element={<App />} />
-			</Routes>
-		</BrowserRouter>
-	</Provider>
+	<BrowserRouter>
+		<Routes>
+			<Route path="/" element={<Login />} />
+			<Route path="/register" element={<Register />} />
+			<Route path="/reset" element={<Reset />} />
+			<Route path="/home" element={<App />} />
+		</Routes>
+	</BrowserRouter>
 );

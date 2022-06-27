@@ -2,14 +2,7 @@ import { useEffect, useState } from "react";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db, logout } from "./config/firebase";
-import {
-	query,
-	collection,
-	getDocs,
-	where,
-	Firestore,
-} from "firebase/firestore";
+import { auth, logout } from "./config/firebase";
 import { useNavigate } from "react-router-dom";
 
 import { Layout } from "antd";
@@ -22,6 +15,8 @@ import ContactListComp from "./components/ContactListComp";
 import ChatHeaderComp from "./components/ChatHeaderComponents";
 import TypingSectionComp from "./components/TypingSectionComp";
 
+import { fetchUserData } from "./functions/fetchUserData";
+
 const { Header, Footer, Sider, Content } = Layout;
 
 const App: React.FC = () => {
@@ -30,24 +25,10 @@ const App: React.FC = () => {
 	const [userPhoto, setUserPhoto] = useState<string>("");
 	const navigate = useNavigate();
 
-	const fetchUserName = async () => {
-		try {
-			const q = query(
-				collection(db, "users"),
-				where("uid", "==", user?.uid)
-			);
-			const doc = await getDocs(q);
-			const data = doc.docs[0].data();
-			setName(data.name);
-			setUserPhoto(data.photoUrl);
-		} catch (err) {
-			console.error(err);
-		}
-	};
 	useEffect(() => {
 		if (loading) return;
 		!user && navigate("/");
-		fetchUserName();
+		fetchUserData(user, setName, setUserPhoto);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user, loading]);
 
