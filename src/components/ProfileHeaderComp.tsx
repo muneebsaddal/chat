@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { MoreOutlined } from "@ant-design/icons";
 
+import img from "../assets/default-user-icon.png";
+
 interface ProfileHeaderProps {
 	name: string;
 	userPhoto: string;
@@ -10,8 +12,8 @@ const ProfileHeaderComp: React.FC<ProfileHeaderProps> = (props) => {
 	return (
 		<ProfileHeader>
 			<span>
-				<img src={props.userPhoto} alt="" />
-				<h3>{props.name}</h3>
+				<img src={props.userPhoto ? props.userPhoto : img} alt="" />
+				<h3>{props.name ? props.name : "User"}</h3>
 			</span>
 			<span>
 				<MoreOutlined

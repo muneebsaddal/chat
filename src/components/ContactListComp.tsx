@@ -1,15 +1,33 @@
 import styled from "styled-components";
 
-import ContactAvatar1 from "../assets/Jean.webp";
+import defaultUserImg from "../assets/default-user-icon.png";
 
-const ContactListComp: React.FC = () => {
-	return (
-		<>
-			<ContactSearch>
-				<img src={ContactAvatar1} alt="" width="40px" height="40px" />
+interface Contact {
+	authProvider: string;
+	email: string;
+	name: string;
+	photoUrl?: string;
+	uid: string;
+}
+
+interface ContactListProps {
+	contacts: Array<Contact>;
+}
+
+const ContactListComp: React.FC<ContactListProps> = ({ contacts }) => {
+	const contactList = contacts.map((contact) => {
+		console.log(contact.photoUrl);
+		return (
+			<ContactComp>
+				<img
+					src={contact.photoUrl ? contact.photoUrl : defaultUserImg}
+					alt=""
+					width="40px"
+					height="40px"
+				/>
 				<section>
 					<div>
-						<h3>Jean</h3>
+						<h3>{contact.name}</h3>
 						<h4>Ok, see you later</h4>
 					</div>
 					<div className="new-message-count">
@@ -17,27 +35,16 @@ const ContactListComp: React.FC = () => {
 						<div>1</div>
 					</div>
 				</section>
-			</ContactSearch>
-			<ContactSearch>
-				<img src={ContactAvatar1} alt="" width="40px" height="40px" />
-				<section>
-					<div>
-						<h3>Jean</h3>
-						<h4>Ok, see you later</h4>
-					</div>
-					<div className="new-message-count">
-						<h5>19:48</h5>
-						<div>1</div>
-					</div>
-				</section>
-			</ContactSearch>
-		</>
-	);
+			</ContactComp>
+		);
+	});
+
+	return <>{contactList}</>;
 };
 
 export default ContactListComp;
 
-const ContactSearch = styled.div`
+const ContactComp = styled.div`
 	width: 100%;
 	height: 70px;
 	padding: 0px 10px;

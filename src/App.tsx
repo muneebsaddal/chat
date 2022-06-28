@@ -16,6 +16,7 @@ import ChatHeaderComp from "./components/ChatHeaderComponents";
 import TypingSectionComp from "./components/TypingSectionComp";
 
 import { fetchUserData } from "./functions/fetchUserData";
+import { fetchContacts } from "./functions/fetchContacts";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -23,12 +24,15 @@ const App: React.FC = () => {
 	const [user, loading] = useAuthState(auth);
 	const [name, setName] = useState<string>("");
 	const [userPhoto, setUserPhoto] = useState<string>("");
+	const [contacts, setContacts] = useState<[]>([]);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (loading) return;
 		!user && navigate("/");
 		fetchUserData(user, setName, setUserPhoto);
+		fetchContacts(user, setContacts);
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user, loading]);
 
@@ -48,7 +52,7 @@ const App: React.FC = () => {
 						<ContactSearchComp />
 					</ContactSearch>
 					<ContactList>
-						<ContactListComp />
+						<ContactListComp contacts={contacts} />
 					</ContactList>
 					<button id="logout" onClick={logoutUser}>
 						Log out
