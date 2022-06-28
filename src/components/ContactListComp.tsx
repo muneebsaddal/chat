@@ -16,9 +16,8 @@ interface ContactListProps {
 
 const ContactListComp: React.FC<ContactListProps> = ({ contacts }) => {
 	const contactList = contacts.map((contact) => {
-		console.log(contact.photoUrl);
 		return (
-			<ContactComp>
+			<ContactComp key={contact.uid}>
 				<img
 					src={contact.photoUrl ? contact.photoUrl : defaultUserImg}
 					alt=""
