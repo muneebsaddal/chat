@@ -171,7 +171,7 @@ const Register = () => {
 export default Register;
 
 const Container = styled.div`
-	font-family: "Maven Pro";
+	font-family: "Nunito", sans-serif;
 	height: 100vh;
 	display: flex;
 	justify-content: center;

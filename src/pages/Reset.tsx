@@ -97,7 +97,7 @@ const Reset = () => {
 export default Reset;
 
 const Container = styled.div`
-	font-family: "Maven Pro";
+	font-family: "Nunito", sans-serif;
 	height: 100vh;
 	display: flex;
 	justify-content: center;
