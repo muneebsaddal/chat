@@ -1,14 +1,34 @@
 import styled from "styled-components";
 import { MoreOutlined } from "@ant-design/icons";
+import { Button, Dropdown, Menu } from "antd";
 
 import img from "../assets/default-user-icon.png";
 
 interface ProfileHeaderProps {
 	name: string;
 	userPhoto: string;
+	logoutUser: () => void;
 }
 
 const ProfileHeaderComp: React.FC<ProfileHeaderProps> = (props) => {
+	const menu = (
+		<Menu
+			items={[
+				{
+					key: "0",
+					label: (
+						<DropdownItems
+							style={{ border: "none" }}
+							onClick={props.logoutUser}
+						>
+							<p>Logout</p>
+						</DropdownItems>
+					),
+				},
+			]}
+		/>
+	);
+
 	return (
 		<ProfileHeader>
 			<span>
@@ -16,12 +36,19 @@ const ProfileHeaderComp: React.FC<ProfileHeaderProps> = (props) => {
 				<h3>{props.name ? props.name : "User"}</h3>
 			</span>
 			<span>
-				<MoreOutlined
-					style={{
-						fontSize: "24px",
-						color: "#000000",
-					}}
-				/>
+				<Dropdown
+					overlay={menu}
+					placement="bottom"
+					trigger={["click"]}
+					arrow
+				>
+					<MoreOutlined
+						style={{
+							fontSize: "24px",
+							color: "#000000",
+						}}
+					/>
+				</Dropdown>
 			</span>
 		</ProfileHeader>
 	);
@@ -44,11 +71,9 @@ const ProfileHeader = styled.div`
             width: 40px;
             height 40px;
         }
-        
-        > h3 {
-            font-weight: 600;
-            font-size: 16px;
-            color: #011627;
-        }
     }
+`;
+
+const DropdownItems = styled.div`
+	padding: 3px 7px;
 `;
