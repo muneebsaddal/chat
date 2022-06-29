@@ -1,16 +1,23 @@
 import styled from "styled-components";
 import { MoreOutlined, PhoneFilled, SearchOutlined } from "@ant-design/icons";
 
-import ContactAvatar from "../assets/Jean.webp";
+interface ChatHeaderProps {
+	activeContact: Contact | undefined;
+}
 
-const ChatHeaderComp: React.FC = () => {
+const ChatHeaderComp: React.FC<ChatHeaderProps> = ({ activeContact }) => {
 	return (
 		<ChatHeader>
 			<div>
 				<div className="chat-img-name">
-					<img src={ContactAvatar} alt="" width={40} height={40} />
+					<img
+						src={activeContact?.photoUrl}
+						alt=""
+						width={40}
+						height={40}
+					/>
 					<div className="name-status">
-						<h3>Jean</h3>
+						<h3>{activeContact?.name}</h3>
 						<h4>last seen 5 min ago</h4>
 					</div>
 				</div>

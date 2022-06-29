@@ -1,23 +1,23 @@
 import styled from "styled-components";
+import { Dispatch, SetStateAction } from "react";
 
 import defaultUserImg from "../assets/default-user-icon.png";
 
-interface Contact {
-	authProvider: string;
-	email: string;
-	name: string;
-	photoUrl?: string;
-	uid: string;
-}
-
 interface ContactListProps {
 	contacts: Array<Contact>;
+	setActiveContact: Dispatch<SetStateAction<Contact | undefined>>;
 }
 
-const ContactListComp: React.FC<ContactListProps> = ({ contacts }) => {
+const ContactListComp: React.FC<ContactListProps> = ({
+	contacts,
+	setActiveContact,
+}) => {
 	const contactList = contacts.map((contact) => {
+		const handleActiveContact = () => {
+			setActiveContact(contact);
+		};
 		return (
-			<ContactComp key={contact.uid}>
+			<ContactComp key={contact.uid} onClick={handleActiveContact}>
 				<img
 					src={contact.photoUrl ? contact.photoUrl : defaultUserImg}
 					alt=""
@@ -52,6 +52,9 @@ const ContactComp = styled.div`
 	align-items: center;
 	justify-content: left;
 
+	cursor: pointer;
+	border-bottom: 1px solid #ddd;
+
 	> section {
 		display: flex;
 		align-items: center;
@@ -70,8 +73,6 @@ const ContactComp = styled.div`
 				height: 18px;
 				background: #78e378;
 				text-align: center;
-				font-size: 14px;
-				font-weight: 500;
 			}
 		}
 	}
