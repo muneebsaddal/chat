@@ -7,12 +7,14 @@ import { useNavigate } from "react-router-dom";
 
 import { Layout } from "antd";
 import styled from "styled-components";
+import GlobalStyle from "./globalStyles";
 import "./App.css";
+import "./_variables.scss";
 
 import ProfileHeaderComp from "./components/ProfileHeaderComp";
 import ContactSearchComp from "./components/ContactSearchComp";
 import ContactListComp from "./components/ContactListComp";
-import ChatHeaderComp from "./components/ChatHeaderComponents";
+import ChatHeaderComp from "./components/ChatHeaderComp";
 import TypingSectionComp from "./components/TypingSectionComp";
 
 import { fetchUserData } from "./functions/fetchUserData";
@@ -25,6 +27,8 @@ const App: React.FC = () => {
 	const [name, setName] = useState<string>("");
 	const [userPhoto, setUserPhoto] = useState<string>("");
 	const [contacts, setContacts] = useState<[]>([]);
+	const [activeContact, setActiveContact] = useState<Contact | undefined>();
+
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -43,31 +47,38 @@ const App: React.FC = () => {
 
 	return (
 		<>
+			<GlobalStyle />
 			<Container>
 				<Sidebar width={400}>
 					<ProfileHeader>
-						<ProfileHeaderComp name={name} userPhoto={userPhoto} />
+						<ProfileHeaderComp
+							name={name}
+							userPhoto={userPhoto}
+							logoutUser={logoutUser}
+						/>
 					</ProfileHeader>
 					<ContactSearch>
 						<ContactSearchComp />
 					</ContactSearch>
 					<ContactList>
-						<ContactListComp contacts={contacts} />
+						<ContactListComp
+							contacts={contacts}
+							setActiveContact={setActiveContact}
+						/>
 					</ContactList>
-					<button id="logout" onClick={logoutUser}>
-						Log out
-					</button>
 				</Sidebar>
 
-				<Chat>
-					<ChatHeader>
-						<ChatHeaderComp />
-					</ChatHeader>
-					<Messages></Messages>
-					<TypingSection>
-						<TypingSectionComp />
-					</TypingSection>
-				</Chat>
+				{activeContact && (
+					<Chat>
+						<ChatHeader>
+							<ChatHeaderComp activeContact={activeContact} />
+						</ChatHeader>
+						<Messages></Messages>
+						<TypingSection>
+							<TypingSectionComp />
+						</TypingSection>
+					</Chat>
+				)}
 			</Container>
 		</>
 	);
@@ -76,13 +87,13 @@ const App: React.FC = () => {
 export default App;
 
 const Container = styled(Layout)`
-	background: #ffffff;
+	background: var(--container-background);
 	padding: 1%;
 	height: 100vh;
 `;
 
 const Sidebar = styled(Sider)`
-	background: #ffffff;
+	background: var(--sidebar-background);
 	box-shadow: -1px 0px 3px rgba(0, 0, 0, 0.25);
 	border-radius: 2px 0px 0px 2px;
 `;
@@ -95,16 +106,17 @@ const ProfileHeader = styled(Header)`
 
 const ContactSearch = styled(Header)`
 	background: none;
-	padding: 10px 25px;
-	height: 50px;
+	margin: 10px 0;
+	padding: 0px 20px;
+	height: 40px;
 `;
 
 const ContactList = styled(Content)`
-	margin: 10px;
+	margin: 0px;
 `;
 
 const Chat = styled(Layout)`
-	background: #ffffff;
+	background: var(--chat-background);
 	// margin: 0px 0px 0px 20px;
 	box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.25);
 	border-radius: 0px 2px 2px 0px;
@@ -117,7 +129,7 @@ const ChatHeader = styled(Header)`
 `;
 
 const Messages = styled(Content)`
-	background: #8babd8;
+	background: var(--message-background);
 	margin: 0px;
 	padding: 0px;
 `;

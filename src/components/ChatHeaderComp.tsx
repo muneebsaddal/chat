@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { MoreOutlined, PhoneFilled, SearchOutlined } from "@ant-design/icons";
 
+import img from "../assets/default-user-icon.png";
+
 interface ChatHeaderProps {
 	activeContact: Contact | undefined;
 }
@@ -11,7 +13,11 @@ const ChatHeaderComp: React.FC<ChatHeaderProps> = ({ activeContact }) => {
 			<div>
 				<div className="chat-img-name">
 					<img
-						src={activeContact?.photoUrl}
+						src={
+							activeContact?.photoUrl
+								? activeContact?.photoUrl
+								: img
+						}
 						alt=""
 						width={40}
 						height={40}
@@ -59,7 +65,7 @@ const ChatHeader = styled.div`
 		display: flex;
 		flex-direction: horizontal;
 		align-items: center;
-		line-height: 22px;
+		line-height: 24px;
 	}
 	.name-status {
 		display: flex;
