@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MoreOutlined } from "@ant-design/icons";
-import { Dropdown, Menu } from "antd";
+import { Dropdown, Menu, Button } from "antd";
 
 import img from "../assets/default-user-icon.png";
 
@@ -21,7 +21,7 @@ const ProfileHeaderComp: React.FC<ProfileHeaderProps> = (props) => {
 							style={{ border: "none" }}
 							onClick={props.logoutUser}
 						>
-							<p>Logout</p>
+							<p id="logout">Logout</p>
 						</DropdownItems>
 					),
 				},
@@ -42,12 +42,14 @@ const ProfileHeaderComp: React.FC<ProfileHeaderProps> = (props) => {
 					trigger={["click"]}
 					arrow
 				>
-					<MoreOutlined
-						style={{
-							fontSize: "24px",
-							color: "#000000",
-						}}
-					/>
+					<Button id="more-setting" name="more-setting">
+						<MoreOutlined
+							style={{
+								fontSize: "24px",
+								color: "#000000",
+							}}
+						/>
+					</Button>
 				</Dropdown>
 			</span>
 		</ProfileHeader>

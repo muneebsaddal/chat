@@ -12,14 +12,16 @@ describe("Login, Register and Authentication", () => {
 		cy.get("input#password").type("qwerty");
 		cy.get("input#confirm-password").type("qwerty");
 		cy.get('button[id="register-button"]').click();
-		cy.get('button[id="logout"]').click();
+		cy.get('button[id="more-setting"]').click();
+		cy.get('p[id="logout"]').click();
 	});
 
 	it("Login User", () => {
 		cy.get("input#email").type(email);
 		cy.get("input#password").type("qwerty");
 		cy.get('button[id="login-button"]').click();
-		cy.get('button[id="logout"]').click();
+		cy.get('button[id="more-setting"]').click();
+		cy.get('p[id="logout"]').click();
 	});
 
 	it("authentication test", () => {
