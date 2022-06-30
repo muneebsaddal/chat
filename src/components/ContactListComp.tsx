@@ -45,15 +45,16 @@ export default ContactListComp;
 
 const ContactComp = styled.div`
 	width: 100%;
-	height: 70px;
-	padding: 0px 10px;
+	height: 80px;
+	padding: 0px 20px;
+    margin: 0px 0;
 
 	display: flex;
 	align-items: center;
 	justify-content: left;
 
 	cursor: pointer;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #eee;
 
 	> section {
 		display: flex;
@@ -71,7 +72,7 @@ const ContactComp = styled.div`
 				border-radius: 50%;
 				width: 18px;
 				height: 18px;
-				background: #78e378;
+				background: var(--notification-bubble-color);
 				text-align: center;
 			}
 		}

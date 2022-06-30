@@ -105,7 +105,7 @@ const Container = styled.div`
 `;
 
 const StyledForm = styled(Form)`
-	background: #fdfdfd;
+	background: var(--container-background);
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 	border-radius: 8px;
 	max-width: 400px;

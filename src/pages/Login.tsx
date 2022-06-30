@@ -136,11 +136,7 @@ const LoginSection = styled.section`
 	padding: 50px 50px 30px 50px;
 	justify-content: space-between;
 
-	// position: relative;
-	// width: 636px;
-	// height: 410px;
-
-	background: #fdfdfd;
+	background: var(--container-background);
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 	border-radius: 8px;
 `;
@@ -151,7 +147,6 @@ const StyledForm = styled(Form)`
 	height: 300px;
 	display: flex;
 	flex-direction: column;
-	// align-items: center;
 	justify-content: center;
 `;
 

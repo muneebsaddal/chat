@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MoreOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Menu } from "antd";
+import { Dropdown, Menu } from "antd";
 
 import img from "../assets/default-user-icon.png";
 
@@ -58,7 +58,8 @@ export default ProfileHeaderComp;
 
 const ProfileHeader = styled.div`
     height: 64px;
-	padding: 0px 25px;
+	padding: 0px 20px;
+    margin: 5px 0;
 	display: flex;
 	flex-direction: horizontal;
 	justify-content: space-between;

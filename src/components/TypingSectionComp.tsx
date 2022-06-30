@@ -45,5 +45,6 @@ const TypingSection = styled.div`
 	> TextArea {
 		margin: 0px 20px;
         border: none;
+        background: var(--typing-section-background)
 	}
 `;
