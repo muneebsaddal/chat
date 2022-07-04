@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { SmileOutlined, SendOutlined } from "@ant-design/icons";
 import { Input } from "antd";
