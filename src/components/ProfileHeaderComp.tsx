@@ -42,7 +42,14 @@ const ProfileHeaderComp: React.FC<ProfileHeaderProps> = (props) => {
 					trigger={["click"]}
 					arrow
 				>
-					<Button id="more-setting" name="more-setting">
+					<Button
+						id="more-setting"
+						name="more-setting"
+						style={{
+							border: "0px solid transparent",
+							boxShadow: "none",
+						}}
+					>
 						<MoreOutlined
 							style={{
 								fontSize: "24px",
