@@ -2,12 +2,18 @@ import { useState } from "react";
 import styled from "styled-components";
 import { SmileOutlined, SendOutlined } from "@ant-design/icons";
 import { Input } from "antd";
+import { Dispatch, SetStateAction } from "react";
 
 const { TextArea } = Input;
 
-const TypingSectionComp: React.FC = () => {
-	const [value, setValue] = useState("");
+interface TypingSectionCompProps {
+	setMessage: Dispatch<SetStateAction<string>>;
+}
 
+const TypingSectionComp: React.FC<TypingSectionCompProps> = (props) => {
+	const handleSetMessage = (e: string) => {
+		props.setMessage(e);
+	};
 	return (
 		<TypingSection>
 			<SmileOutlined
@@ -17,9 +23,9 @@ const TypingSectionComp: React.FC = () => {
 				}}
 			/>
 			<TextArea
-				value={value}
+				// value={value}
 				size="large"
-				onChange={(e) => setValue(e.target.value)}
+				onChange={(e) => handleSetMessage(e.target.value)}
 				placeholder="Message"
 				autoSize={{ minRows: 1, maxRows: 2 }}
 			/>
@@ -44,7 +50,7 @@ const TypingSection = styled.div`
 	align-items: center;
 	> TextArea {
 		margin: 0px 20px;
-        border: none;
-        background: var(--typing-section-background)
+		border: none;
+		background: var(--typing-section-background);
 	}
 `;

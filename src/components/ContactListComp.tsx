@@ -47,7 +47,7 @@ const ContactComp = styled.div`
 	width: 100%;
 	height: 80px;
 	padding: 0px 20px;
-    margin: 0px 0;
+	margin: 0px 0;
 
 	display: flex;
 	align-items: center;

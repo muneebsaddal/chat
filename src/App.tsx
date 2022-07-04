@@ -19,6 +19,7 @@ import TypingSectionComp from "./components/TypingSectionComp";
 
 import { fetchUserData } from "./functions/fetchUserData";
 import { fetchContacts } from "./functions/fetchContacts";
+import MessagesComp from "./components/MessagesComp";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -28,6 +29,7 @@ const App: React.FC = () => {
 	const [userPhoto, setUserPhoto] = useState<string>("");
 	const [contacts, setContacts] = useState<[]>([]);
 	const [activeContact, setActiveContact] = useState<Contact | undefined>();
+	const [message, setMessage] = useState<string>("");
 
 	const navigate = useNavigate();
 
@@ -39,6 +41,7 @@ const App: React.FC = () => {
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user, loading]);
+
 
 	const logoutUser = () => {
 		logout();
@@ -73,9 +76,16 @@ const App: React.FC = () => {
 						<ChatHeader>
 							<ChatHeaderComp activeContact={activeContact} />
 						</ChatHeader>
-						<Messages></Messages>
+						<Messages>
+							<MessagesComp
+								user={user}
+								loading={loading}
+								activeContact={activeContact}
+								message={message}
+							/>
+						</Messages>
 						<TypingSection>
-							<TypingSectionComp />
+							<TypingSectionComp setMessage={setMessage} />
 						</TypingSection>
 					</Chat>
 				)}
