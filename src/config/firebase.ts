@@ -58,9 +58,9 @@ const loginWithEmailAndPassword = async (email: string, password: string) => {
 	try {
 		// option: add check if the user is not registered, ask to register first
 		await signInWithEmailAndPassword(auth, email, password);
+		return true;
 	} catch (err: any) {
-		console.log(err);
-		alert(err.message);
+		return false;
 	}
 };
 
