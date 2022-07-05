@@ -42,7 +42,6 @@ const App: React.FC = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user, loading]);
 
-
 	const logoutUser = () => {
 		logout();
 		navigate("/");
@@ -85,7 +84,11 @@ const App: React.FC = () => {
 							/>
 						</Messages>
 						<TypingSection>
-							<TypingSectionComp setMessage={setMessage} />
+							<TypingSectionComp
+								user={user}
+								loading={loading}
+								setMessage={setMessage}
+							/>
 						</TypingSection>
 					</Chat>
 				)}

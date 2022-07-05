@@ -1,48 +1,71 @@
 import styled from "styled-components";
-import { SmileOutlined, SendOutlined } from "@ant-design/icons";
-import { Input } from "antd";
-import { Dispatch, SetStateAction } from "react";
+import {
+	// SmileOutlined,
+	SendOutlined,
+} from "@ant-design/icons";
+import { User } from "firebase/auth";
+import { Input, Form, Button } from "antd";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
+// import postMessage from "../functions/postMessage";
+import { useNavigate } from "react-router-dom";
 
 const { TextArea } = Input;
 
 interface TypingSectionCompProps {
 	setMessage: Dispatch<SetStateAction<string>>;
+	user: User | null | undefined;
+	loading: any;
 }
 
 const TypingSectionComp: React.FC<TypingSectionCompProps> = (props) => {
-	const handleSetMessage = (e: string) => {
-		props.setMessage(e);
+	const [message, setMessages] = useState("");
+	const navigate = useNavigate();
+
+	const onFinish = (e: any) => {
+		console.log(message);
+		props.setMessage(message);
 	};
+
+	useEffect(() => {
+		if (props.loading) return;
+		!props.user && navigate("/");
+
+		// postMessage(message, props.user);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [props.user, props.loading]);
+
 	return (
-		<TypingSection>
-			<SmileOutlined
+		<TypingSection onFinish={onFinish}>
+			{/* <SmileOutlined
 				style={{
 					fontSize: "22px",
 					color: "#707991",
 				}}
-			/>
+			/> */}
+
 			<TextArea
-				// value={value}
 				size="large"
-				onChange={(e) => handleSetMessage(e.target.value)}
+				onChange={(e) => setMessages(e.target.value)}
 				placeholder="Message"
 				autoSize={{ minRows: 1, maxRows: 2 }}
 			/>
-			<SendOutlined
-				style={{
-					fontSize: "22px",
-					color: "#707991",
-				}}
-			/>
+			<SendButton htmlType="submit">
+				<SendOutlined
+					style={{
+						fontSize: "22px",
+						color: "#707991",
+					}}
+				/>
+			</SendButton>
 		</TypingSection>
 	);
 };
 
 export default TypingSectionComp;
 
-const TypingSection = styled.div`
+const TypingSection = styled(Form)`
 	height: 64px;
-	padding: 0px 25px;
+	padding: 0 25px 0 0;
 	display: flex;
 	flex-direction: horizontal;
 	justify-content: space-between;
@@ -52,4 +75,11 @@ const TypingSection = styled.div`
 		border: none;
 		background: var(--typing-section-background);
 	}
+`;
+
+const SendButton = styled(Button)`
+	border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
 `;
