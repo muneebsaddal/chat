@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
-import { auth, passwordResetEmail } from "../config/firebase";
+import { auth, passwordResetEmail } from "../config/firebaseAuth";
 
 const Reset = () => {
 	const [email, setEmail] = useState<string>("");

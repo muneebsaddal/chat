@@ -1,4 +1,4 @@
-import { db } from "../config/firebase";
+import { db } from "../config/firebaseAuth";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { User } from "firebase/auth";
 
