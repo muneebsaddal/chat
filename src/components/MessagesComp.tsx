@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { User } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
@@ -7,29 +6,30 @@ import styled from "styled-components";
 import { fetchContactChat } from "../functions/fetchContactChat";
 
 interface MessagesCompProps {
-	user: User | null | undefined;
+	user_id: string;
 	loading: any;
-	activeContact: Contact | undefined;
-	message: string;
+	activeContact_id: string;
 }
 
-const MessagesComp: React.FC<MessagesCompProps> = (props) => {
+const MessagesComp: React.FC<MessagesCompProps> = ({
+	user_id,
+	loading,
+	activeContact_id,
+}) => {
 	const navigate = useNavigate();
-	const currentUserId = props.user?.uid;
-	const currentContactId = props.activeContact?.uid;
 
 	useEffect(() => {
-		if (props.loading) return;
-		!props.user && navigate("/");
+		if (loading) return;
+		!user_id && navigate("/");
 
-		fetchContactChat(currentUserId, currentContactId);
+		fetchContactChat(user_id, activeContact_id);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.user, props.loading]);
+	}, [user_id, loading]);
 
 	return (
 		<div>
 			<ReceivedMsg>Received msg</ReceivedMsg>
-			<SentMsg>{props.message}</SentMsg>
+			<SentMsg>sent msg</SentMsg>
 		</div>
 	);
 };
