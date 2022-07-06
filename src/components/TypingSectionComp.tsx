@@ -3,36 +3,41 @@ import {
 	// SmileOutlined,
 	SendOutlined,
 } from "@ant-design/icons";
-import { User } from "firebase/auth";
 import { Input, Form, Button } from "antd";
-import { Dispatch, SetStateAction, useState, useEffect } from "react";
-// import postMessage from "../functions/postMessage";
+import { useState, useEffect } from "react";
+import postMessage from "../functions/postMessage";
 import { useNavigate } from "react-router-dom";
 
 const { TextArea } = Input;
 
 interface TypingSectionCompProps {
-	setMessage: Dispatch<SetStateAction<string>>;
-	user: User | null | undefined;
+	user_id: string;
 	loading: any;
+	activeContact_id: string;
 }
 
-const TypingSectionComp: React.FC<TypingSectionCompProps> = (props) => {
-	const [message, setMessages] = useState("");
+const TypingSectionComp: React.FC<TypingSectionCompProps> = ({
+	user_id,
+	loading,
+	activeContact_id,
+}) => {
 	const navigate = useNavigate();
 
-	const onFinish = (e: any) => {
-		console.log(message);
-		props.setMessage(message);
+	const [message, setMessage] = useState<string>("");
+	const [temp, setTemp] = useState<string>("");
+
+	const onFinish = () => {
+		setMessage(temp);
+		setTemp("");
 	};
 
 	useEffect(() => {
-		if (props.loading) return;
-		!props.user && navigate("/");
+		if (loading) return;
+		!user_id && navigate("/");
+		message && postMessage(message, user_id, activeContact_id);
 
-		// postMessage(message, props.user);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.user, props.loading]);
+	}, [user_id, loading, message]);
 
 	return (
 		<TypingSection onFinish={onFinish}>
@@ -45,8 +50,9 @@ const TypingSectionComp: React.FC<TypingSectionCompProps> = (props) => {
 
 			<TextArea
 				size="large"
-				onChange={(e) => setMessages(e.target.value)}
+				onChange={(e) => setTemp(e.target.value)}
 				placeholder="Message"
+				value={temp}
 				autoSize={{ minRows: 1, maxRows: 2 }}
 			/>
 			<SendButton htmlType="submit">
@@ -79,7 +85,7 @@ const TypingSection = styled(Form)`
 
 const SendButton = styled(Button)`
 	border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
+	padding: 0;
+	margin: 0;
+	box-shadow: none;
 `;

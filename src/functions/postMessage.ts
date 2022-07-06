@@ -1,10 +1,30 @@
-import { User } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../config/firebaseAuth";
 
-const postMessage = async (message: string, user: User | null | undefined) => {
-
-	// await setDoc(doc(db, "users", "0ap9aWFPzVVjjoW2IKIq"), {
-	// 	message: message,
-	// });
+const postMessage = async (
+	message: string,
+	user_id: string,
+	activeContact_id: string
+) => {
+	const timestamp: string = Date.now().toString();
+	try {
+		await addDoc(
+			collection(
+				db,
+				"chats",
+				user_id,
+				"contacts",
+				activeContact_id,
+				"messages"
+			),
+			{
+				message: message,
+				time: timestamp,
+			}
+		);
+	} catch (err: any) {
+		console.error(err.message);
+	}
 };
 
 export default postMessage;

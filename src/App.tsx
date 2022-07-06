@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, logout } from "./config/firebase";
+import { auth, logout } from "./config/firebaseAuth";
 import { useNavigate } from "react-router-dom";
 
 import { Layout } from "antd";
@@ -29,7 +29,6 @@ const App: React.FC = () => {
 	const [userPhoto, setUserPhoto] = useState<string>("");
 	const [contacts, setContacts] = useState<[]>([]);
 	const [activeContact, setActiveContact] = useState<Contact | undefined>();
-	const [message, setMessage] = useState<string>("");
 
 	const navigate = useNavigate();
 
@@ -77,17 +76,16 @@ const App: React.FC = () => {
 						</ChatHeader>
 						<Messages>
 							<MessagesComp
-								user={user}
+								user_id={user?.uid as string}
 								loading={loading}
-								activeContact={activeContact}
-								message={message}
+								activeContact_id={activeContact?.uid as string}
 							/>
 						</Messages>
 						<TypingSection>
 							<TypingSectionComp
-								user={user}
+								user_id={user?.uid as string}
 								loading={loading}
-								setMessage={setMessage}
+								activeContact_id={activeContact?.uid as string}
 							/>
 						</TypingSection>
 					</Chat>
@@ -109,6 +107,7 @@ const Sidebar = styled(Sider)`
 	background: var(--sidebar-background);
 	box-shadow: -1px 0px 3px rgba(0, 0, 0, 0.25);
 	border-radius: 2px 0px 0px 2px;
+	overflow: auto;
 `;
 
 const ProfileHeader = styled(Header)`
