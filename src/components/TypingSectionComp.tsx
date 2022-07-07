@@ -35,9 +35,9 @@ const TypingSectionComp: React.FC<TypingSectionCompProps> = ({
 		if (loading) return;
 		!user_id && navigate("/");
 		message && postMessage(message, user_id, activeContact_id);
-
+		setMessage("");
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [user_id, loading, message]);
+	}, [user_id, loading, message, activeContact_id]);
 
 	return (
 		<TypingSection onFinish={onFinish}>

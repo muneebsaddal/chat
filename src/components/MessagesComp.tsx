@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
@@ -18,20 +18,36 @@ const MessagesComp: React.FC<MessagesCompProps> = ({
 }) => {
 	const navigate = useNavigate();
 
+	const [chat, setChat] = useState<[]>([]);
+
 	useEffect(() => {
 		if (loading) return;
 		!user_id && navigate("/");
 
-		fetchContactChat(user_id, activeContact_id);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [user_id, loading]);
+		fetchContactChat(user_id, activeContact_id, setChat);
 
-	return (
-		<div>
-			<ReceivedMsg>Received msg</ReceivedMsg>
-			<SentMsg>sent msg</SentMsg>
-		</div>
-	);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user_id, loading, activeContact_id]);
+
+	const Messages = chat
+		.sort((a: any, b: any) => (a.timestamp > b.timestamp ? 1 : -1))
+		.map((messageObj: any) => {
+			if (messageObj.user_id === user_id) {
+				return (
+					<SentMsg key={messageObj.timestamp}>
+						{messageObj.message}
+					</SentMsg>
+				);
+			} else {
+				return (
+					<ReceivedMsg key={messageObj.timestamp}>
+						{messageObj.message}
+					</ReceivedMsg>
+				);
+			}
+		});
+
+	return <div>{Messages}</div>;
 };
 
 export default MessagesComp;

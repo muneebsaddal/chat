@@ -19,7 +19,9 @@ const postMessage = async (
 			),
 			{
 				message: message,
-				time: timestamp,
+				timestamp: timestamp,
+				user_id: user_id,
+				contact_id: activeContact_id,
 			}
 		);
 	} catch (err: any) {
