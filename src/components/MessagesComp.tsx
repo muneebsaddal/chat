@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
@@ -17,6 +17,7 @@ const MessagesComp: React.FC<MessagesCompProps> = ({
 	activeContact_id,
 }) => {
 	const navigate = useNavigate();
+	const divRef = useRef<null | HTMLDivElement>(null);
 
 	const [chat, setChat] = useState<[]>([]);
 
@@ -26,8 +27,14 @@ const MessagesComp: React.FC<MessagesCompProps> = ({
 
 		fetchContactChat(user_id, activeContact_id, setChat);
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [user_id, loading, activeContact_id]);
+		divRef!.current!.scrollIntoView({
+			behavior: "smooth",
+			block: "end",
+			inline: "nearest",
+		});
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user_id, activeContact_id, chat]);
 
 	const Messages = chat
 		.sort((a: any, b: any) => (a.timestamp > b.timestamp ? 1 : -1))
@@ -47,10 +54,17 @@ const MessagesComp: React.FC<MessagesCompProps> = ({
 			}
 		});
 
-	return <div>{Messages}</div>;
+	return (
+		<Container>
+			{Messages}
+			<div ref={divRef} />
+		</Container>
+	);
 };
 
 export default MessagesComp;
+
+const Container = styled.div``;
 
 const Messages = styled.p`
 	width: fit-content;

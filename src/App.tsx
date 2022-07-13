@@ -144,6 +144,7 @@ const Messages = styled(Content)`
 	background: var(--message-background);
 	margin: 0px;
 	padding: 0px;
+	overflow: auto;
 `;
 
 const TypingSection = styled(Footer)`
