@@ -10,7 +10,7 @@ import {
 } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { ToastContainer, toast } from "react-toastify";
+import { Toaster, toast } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login: React.FC = () => {
@@ -34,13 +34,10 @@ const Login: React.FC = () => {
 
 	const authenticationFailed = () =>
 		toast.error("Incorrect Email or Password!", {
-			position: "bottom-right",
-			autoClose: 3000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
+			position: "top-center",
+			style: {
+				borderRadius: "10px",
+			},
 		});
 
 	const onFinish = () => {
@@ -132,7 +129,7 @@ const Login: React.FC = () => {
 				</StyledForm>
 				{/* <img src={Logo} alt="" /> */}
 			</LoginSection>
-			<ToastContainer />
+			<Toaster />
 		</Container>
 	);
 };
