@@ -34,7 +34,11 @@ const MessagesComp: React.FC<MessagesCompProps> = ({
 		});
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [user_id, activeContact_id, chat]);
+	}, [
+		user_id,
+		activeContact_id,
+		// chat
+	]);
 
 	const Messages = chat
 		.sort((a: any, b: any) => (a.timestamp > b.timestamp ? 1 : -1))

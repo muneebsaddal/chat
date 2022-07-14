@@ -1,4 +1,3 @@
-import { initializeApp } from "firebase/app";
 import {
 	GoogleAuthProvider,
 	getAuth,
@@ -18,16 +17,8 @@ import {
 	addDoc,
 } from "firebase/firestore";
 
-const firebaseConfig = {
-	apiKey: "AIzaSyB9nCVQsEzp5s_FjgvBRVHh90CCRGvxY4c",
-	authDomain: "chat-ac983.firebaseapp.com",
-	projectId: "chat-ac983",
-	storageBucket: "chat-ac983.appspot.com",
-	messagingSenderId: "751259258650",
-	appId: "1:751259258650:web:aea07576a906983b7266a3",
-};
+import { app } from "./firebaseConfig";
 
-const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 

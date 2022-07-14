@@ -1,5 +1,5 @@
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../config/firebaseAuth";
+import { db } from "../config/firebase";
 
 const postMessage = async (
 	message: string,

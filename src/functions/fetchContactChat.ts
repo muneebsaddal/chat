@@ -1,5 +1,5 @@
 import { collection, getDocs, query } from "firebase/firestore";
-import { db } from "../config/firebaseAuth";
+import { db } from "../config/firebase";
 
 const fetchContactChat = async (
 	user_id: string,

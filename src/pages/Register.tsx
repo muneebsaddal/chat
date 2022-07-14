@@ -8,7 +8,7 @@ import {
 	auth,
 	registerWithEmailAndPassword,
 	signInWithGoogle,
-} from "../config/firebaseAuth";
+} from "../config/firebase";
 
 const formItemLayout = {
 	labelCol: {

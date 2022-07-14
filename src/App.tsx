@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, logout } from "./config/firebaseAuth";
+import { auth, logout } from "./config/firebase";
 import { useNavigate } from "react-router-dom";
 
 import { Layout } from "antd";
