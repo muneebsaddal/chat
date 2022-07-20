@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, logout } from "./config/firebase";
+import { auth, logout } from "./config/auth";
 import { useNavigate } from "react-router-dom";
 
 import { Layout } from "antd";
@@ -141,10 +141,12 @@ const ChatHeader = styled(Header)`
 `;
 
 const Messages = styled(Content)`
-	background: var(--message-background);
+	background: none;
 	margin: 0px;
 	padding: 0px;
 	overflow: auto;
+	display: flex;
+	flex-direction: column-reverse;
 `;
 
 const TypingSection = styled(Footer)`

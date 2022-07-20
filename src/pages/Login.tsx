@@ -7,7 +7,7 @@ import {
 	auth,
 	loginWithEmailAndPassword,
 	signInWithGoogle,
-} from "../config/firebase";
+} from "../config/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { Toaster, toast } from "react-hot-toast";

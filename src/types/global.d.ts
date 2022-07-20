@@ -8,4 +8,11 @@ declare global {
 		photoUrl?: string;
 		uid: string;
 	}
+
+	interface Message {
+		message: string;
+		timestamp: string;
+		user_id: string;
+		contact_id: string;
+	}
 }
