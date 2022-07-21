@@ -4,7 +4,7 @@ import {
 	SendOutlined,
 } from "@ant-design/icons";
 import { Input, Form, Button } from "antd";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import postMessage from "../functions/postMessage";
 import { useNavigate } from "react-router-dom";
 
@@ -14,12 +14,18 @@ interface TypingSectionCompProps {
 	user_id: string;
 	loading: any;
 	activeContact_id: string;
+	flagForChatFetch: number;
+	setFlagForChatFetch: Dispatch<SetStateAction<number>>;
+	setFetchMessage: Dispatch<SetStateAction<boolean>>;
 }
 
 const TypingSectionComp: React.FC<TypingSectionCompProps> = ({
 	user_id,
 	loading,
 	activeContact_id,
+	flagForChatFetch,
+	setFlagForChatFetch,
+	setFetchMessage,
 }) => {
 	const navigate = useNavigate();
 
@@ -34,8 +40,11 @@ const TypingSectionComp: React.FC<TypingSectionCompProps> = ({
 	useEffect(() => {
 		if (loading) return;
 		!user_id && navigate("/");
+		// setFetchMessage(false);
 		message && postMessage(message, user_id, activeContact_id);
 		setMessage("");
+		setFlagForChatFetch(flagForChatFetch++);
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user_id, loading, message, activeContact_id]);
 
@@ -55,14 +64,16 @@ const TypingSectionComp: React.FC<TypingSectionCompProps> = ({
 				value={temp}
 				autoSize={{ minRows: 1, maxRows: 2 }}
 			/>
-			<SendButton htmlType="submit">
-				<SendOutlined
-					style={{
-						fontSize: "22px",
-						color: "#707991",
-					}}
-				/>
-			</SendButton>
+			<button onClick={() => setFetchMessage(true)}>
+				<SendButton htmlType="submit">
+					<SendOutlined
+						style={{
+							fontSize: "22px",
+							color: "#707991",
+						}}
+					/>
+				</SendButton>
+			</button>
 		</TypingSection>
 	);
 };

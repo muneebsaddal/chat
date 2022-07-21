@@ -30,6 +30,9 @@ const App: React.FC = () => {
 	const [contacts, setContacts] = useState<[]>([]);
 	const [activeContact, setActiveContact] = useState<Contact | undefined>();
 
+	const [flagForChatFetch, setFlagForChatFetch] = useState<number>(0);
+	const [runFetchMessage, setFetchMessage] = useState<boolean>(false);
+
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -79,6 +82,9 @@ const App: React.FC = () => {
 								user_id={user?.uid as string}
 								loading={loading}
 								activeContact_id={activeContact?.uid as string}
+								flagForChatFetch={flagForChatFetch}
+								runFetchMessage={runFetchMessage}
+								setFetchMessage={setFetchMessage}
 							/>
 						</Messages>
 						<TypingSection>
@@ -86,6 +92,9 @@ const App: React.FC = () => {
 								user_id={user?.uid as string}
 								loading={loading}
 								activeContact_id={activeContact?.uid as string}
+								flagForChatFetch={flagForChatFetch}
+								setFlagForChatFetch={setFlagForChatFetch}
+								setFetchMessage={setFetchMessage}
 							/>
 						</TypingSection>
 					</Chat>
@@ -104,14 +113,14 @@ const Container = styled(Layout)`
 `;
 
 const Sidebar = styled(Sider)`
-	background: var(--sidebar-background);
+	background: var(--app-color);
 	box-shadow: -1px 0px 3px rgba(0, 0, 0, 0.25);
 	border-radius: 2px 0px 0px 2px;
 	overflow: auto;
 `;
 
 const ProfileHeader = styled(Header)`
-	background: none;
+	background: var(--app-color);
 	padding: 0px;
 	margin: 0px;
 `;
@@ -128,20 +137,19 @@ const ContactList = styled(Content)`
 `;
 
 const Chat = styled(Layout)`
-	background: var(--chat-background);
 	// margin: 0px 0px 0px 20px;
 	box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.25);
 	border-radius: 0px 2px 2px 0px;
 `;
 
 const ChatHeader = styled(Header)`
-	background: none;
+	background: var(--app-color);
 	margin: 0px;
 	padding: 0px;
 `;
 
 const Messages = styled(Content)`
-	background: none;
+	background: var(--message-background);
 	margin: 0px;
 	padding: 0px;
 	overflow: auto;
@@ -150,7 +158,7 @@ const Messages = styled(Content)`
 `;
 
 const TypingSection = styled(Footer)`
-	background: none;
+	background: var(--app-color);
 	margin: 0px;
 	padding: 0px;
 `;

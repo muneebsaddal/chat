@@ -1,40 +1,53 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, Dispatch, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchMessages } from "../functions/fetchMessages";
 
 import styled from "styled-components";
+import { fetchContactChat } from "../functions/fetchContactChat";
+import { fetchMessages } from "../functions/fetchMessages";
 
 interface MessagesCompProps {
 	user_id: string;
 	loading: any;
 	activeContact_id: string;
+	flagForChatFetch: number;
+	runFetchMessage: boolean;
+	setFetchMessage: Dispatch<SetStateAction<boolean>>;
 }
 
 const MessagesComp: React.FC<MessagesCompProps> = ({
 	user_id,
 	loading,
 	activeContact_id,
+	flagForChatFetch,
+	runFetchMessage,
+	setFetchMessage,
 }) => {
 	const navigate = useNavigate();
 
-	const [chat, setChat] = useState<[]>([]);
+	const [chat, setChat] = useState<Array<Message>>([]);
 
 	useEffect(() => {
 		if (loading) return;
 		!user_id && navigate("/");
 
-		fetchMessages(user_id, activeContact_id).then((result: any) => {
+		// fetchMessages(user_id, activeContact_id).then((result: any) => {
+		// 	setChat(result);
+		// });
+
+		fetchContactChat(user_id, activeContact_id).then((result: any) => {
 			setChat(result);
 		});
+	}, [activeContact_id, flagForChatFetch, loading, navigate, user_id]);
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [
-		user_id,
-		activeContact_id,
-		// chat,
-	]);
-
-	// console.log(chat);
+	useEffect(() => {
+		runFetchMessage &&
+			fetchContactChat(user_id, activeContact_id).then((result: any) => {
+				setChat(result);
+			});
+		console.log("ran second useEffect", runFetchMessage);
+		setFetchMessage(false);
+		console.log(runFetchMessage);
+	}, [activeContact_id, runFetchMessage, setFetchMessage, user_id]);
 
 	const Messages = chat
 		.sort((a: any, b: any) => (a.timestamp > b.timestamp ? 1 : -1))
@@ -53,6 +66,8 @@ const MessagesComp: React.FC<MessagesCompProps> = ({
 				);
 			}
 		});
+
+	console.log(Messages);
 
 	return <div>{Messages}</div>;
 };

@@ -4,7 +4,6 @@ import { db } from "../config/auth";
 const fetchContactChat = async (
 	user_id: string,
 	activeContact_id: string,
-	setChat: any
 ) => {
 	try {
 		const queryForSentMessages = query(
@@ -39,7 +38,7 @@ const fetchContactChat = async (
 
 		const messages = dataForSentMessages.concat(dataForReceivedMessages);
 
-		setChat(messages);
+		return (messages);
 	} catch (err) {
 		console.error(err);
 	}
