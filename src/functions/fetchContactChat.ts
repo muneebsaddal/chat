@@ -1,10 +1,7 @@
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../config/auth";
 
-const fetchContactChat = async (
-	user_id: string,
-	activeContact_id: string,
-) => {
+const fetchContactChat = async (user_id: string, activeContact_id: string) => {
 	try {
 		const queryForSentMessages = query(
 			collection(
@@ -37,8 +34,8 @@ const fetchContactChat = async (
 		);
 
 		const messages = dataForSentMessages.concat(dataForReceivedMessages);
-
-		return (messages);
+		console.log("inside function call");
+		return messages;
 	} catch (err) {
 		console.error(err);
 	}
