@@ -40,12 +40,17 @@ const fetchMessages = async (user_id: string, activeContact_id: string) => {
 				querySnapshot.forEach((doc) => {
 					messages.push(doc.data());
 				});
+				console.log("rec:", messages);
 			}
 		);
+
+		console.log("mes:", messages);
 		return messages;
 	} catch (err) {
 		console.error(err);
 	}
 };
+
+const onChatUpdate = () => {};
 
 export { fetchMessages };
