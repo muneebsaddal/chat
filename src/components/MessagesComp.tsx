@@ -30,28 +30,21 @@ const MessagesComp: React.FC<MessagesCompProps> = ({
 		if (loading) return;
 		!user_id && navigate("/");
 
-		fetchContactChat(user_id, activeContact_id).then((result: any) => {
+		fetchMessages(user_id, activeContact_id).then((result: any) => {
 			setChat(result);
 		});
 	}, [activeContact_id, loading, navigate, user_id]);
 
-	useEffect(() => {
-		if (loading) return;
-		!user_id && navigate("/");
+	// useEffect(() => {
+	// 	if (loading) return;
+	// 	!user_id && navigate("/");
 
-		runFetchMessage &&
-			fetchContactChat(user_id, activeContact_id).then((result: any) => {
-				setChat(result);
-			});
-		setFetchMessage(false);
-	}, [
-		activeContact_id,
-		loading,
-		navigate,
-		runFetchMessage,
-		setFetchMessage,
-		user_id,
-	]);
+	// 	runFetchMessage &&
+	// 		fetchMessages(user_id, activeContact_id).then((result: any) => {
+	// 			setChat(result);
+	// 		});
+	// 	setFetchMessage(false);
+	// }, [runFetchMessage]);
 
 	const Messages = chat
 		.sort((a: any, b: any) => (a.timestamp > b.timestamp ? 1 : -1))

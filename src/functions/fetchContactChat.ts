@@ -34,7 +34,6 @@ const fetchContactChat = async (user_id: string, activeContact_id: string) => {
 		);
 
 		const messages = dataForSentMessages.concat(dataForReceivedMessages);
-		console.log("inside function call");
 		return messages;
 	} catch (err) {
 		console.error(err);
