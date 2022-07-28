@@ -15,12 +15,14 @@ const fetchMessages = async (user_id: string, activeContact_id: string) => {
 				"messages"
 			)
 		);
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const sentMessagesSnapShot = onSnapshot(
 			sentMessagesQuery,
 			(querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					messages.push(doc.data());
 				});
+				console.log("data inside first snapshot:", messages);
 			}
 		);
 
@@ -34,23 +36,22 @@ const fetchMessages = async (user_id: string, activeContact_id: string) => {
 				"messages"
 			)
 		);
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const receivedMessagesSnapShot = onSnapshot(
 			receivedMessagesQuery,
 			(querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					messages.push(doc.data());
 				});
-				console.log("rec:", messages);
+				console.log("data inside second snapshot:", messages);
 			}
 		);
 
-		console.log("mes:", messages);
+		console.log("data outside snapshot:", messages);
 		return messages;
 	} catch (err) {
 		console.error(err);
 	}
 };
-
-const onChatUpdate = () => {};
 
 export { fetchMessages };

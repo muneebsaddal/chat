@@ -1,9 +1,12 @@
-import { SetStateAction, Dispatch, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { SetStateAction, Dispatch,  useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { collection, onSnapshot } from "firebase/firestore";
+// import { db } from "../config/auth";
 
 import styled from "styled-components";
-import { fetchContactChat } from "../functions/fetchContactChat";
-import { fetchMessages } from "../functions/fetchMessages";
+// import { fetchContactChat } from "../functions/fetchContactChat";
+// import { fetchMessages } from "../functions/fetchMessages";
+// import { fetchChat } from "../functions/fetchChat";
 
 interface MessagesCompProps {
 	user_id: string;
@@ -22,27 +25,78 @@ const MessagesComp: React.FC<MessagesCompProps> = ({
 	runFetchMessage,
 	setFetchMessage,
 }) => {
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const [chat, setChat] = useState<Array<Message>>([]);
+    setChat([])
+    // const messages: any[] = [];
 
-	useEffect(() => {
-		if (loading) return;
-		!user_id && navigate("/");
+	// useEffect(() => {
+	// 	if (loading) return;
+	// 	!user_id && navigate("/");
 
-		fetchMessages(user_id, activeContact_id).then((result: any) => {
-			setChat(result);
-		});
-	}, [activeContact_id, loading, navigate, user_id]);
+	// onSnapshot(
+	// 	collection(
+	// 		db,
+	// 		"chats",
+	// 		user_id,
+	// 		"contacts",
+	// 		activeContact_id,
+	// 		"messages"
+	// 	),
+	// 	(querySnapshot) => {
+	// 		querySnapshot.forEach((doc) => {
+	// 			messages.push(doc.data());
+	// 		});
+	// 		setChat(messages);
+	// 	}
+	// );
+	// console.log("first fetch for sender -- ", chat);
+	// onSnapshot(
+	// 	collection(
+	// 		db,
+	// 		"chats",
+	// 		activeContact_id,
+	// 		"contacts",
+	// 		user_id,
+	// 		"messages"
+	// 	),
+	// 	(querySnapshot) => {
+	// 		querySnapshot.forEach((doc) => {
+	// 			messages.push(doc.data());
+	// 		});
+	// 		setChat(messages);
+	// 	}
+	// );
+	// console.log("second fetch for sender -- ", chat);
+	// });
+
+	// }, [activeContact_id, loading, navigate, user_id, stopListening]);
 
 	// useEffect(() => {
 	// 	if (loading) return;
 	// 	!user_id && navigate("/");
 
 	// 	runFetchMessage &&
-	// 		fetchMessages(user_id, activeContact_id).then((result: any) => {
-	// 			setChat(result);
-	// 		});
+	// 		onSnapshot(
+	// 			collection(
+	// 				db,
+	// 				"chats",
+	// 				activeContact_id,
+	// 				"contacts",
+	// 				user_id,
+	// 				"messages"
+	// 			),
+	// 			(querySnapshot) => {
+	// 				querySnapshot.forEach((doc) => {
+	// 					messages.push(doc.data());
+	// 				});
+	// 				setChat(messages);
+	// 			}
+	// 		);
+	// 	// 		fetchMessages(user_id, activeContact_id).then((result: any) => {
+	// 	// 			setChat(result);
+	// 	// 		});
 	// 	setFetchMessage(false);
 	// }, [runFetchMessage]);
 
@@ -64,7 +118,7 @@ const MessagesComp: React.FC<MessagesCompProps> = ({
 			}
 		});
 
-	console.log(Messages);
+	// console.log(Messages);
 
 	return <div>{Messages}</div>;
 };
